@@ -1,19 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import useSWR from "swr";
 import Card from "@/components/Card";
+import Loading from "@/components/Loading";
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Home() {
-  const [realEstates, setRealEstates] = useState([]);
+  const { data: houseList, error } = useSWR("/api/houseList", fetcher);
 
-  useEffect(() => {
-    fetch("/api/realEstates")
-      .then((response) => response.json())
-      .then((data) => setRealEstates(data));
-  }, []);
+  console.log(houseList);
+
+  if (error) return <Error />;
+  if (!houseList) return <Loading />;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-10 w-[75%] mx-auto">
-      {realEstates.map((realEstate) => (
-        <Card key={realEstate.id} realEstate={realEstate} />
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-10 w-[70%] mx-auto mb-10">
+      {houseList.map((house) => (
+        <Card key={house.id} house={house} />
       ))}
     </div>
   );

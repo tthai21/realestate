@@ -5,25 +5,10 @@ import Link from "next/link";
 const NavBar = () => {
   return (
     <nav className="bg-primary">
-      <div className="bg-primary p-4 flex justify-between items-center h-12 w-[70%] mx-auto">
+      <div className="p-4 flex justify-between items-center h-12 w-[70%] mx-auto">
         <Link href="/" className="flex items-center">
           <img src="/realestate.jpg" alt="realestate Logo" className=" h-12" />
         </Link>
-
-        <div className="flex items-center space-x-10">
-          <a
-            href="#"
-            className="text-white hover:text-secondary font-bold text-lg"
-          >
-            Buy
-          </a>
-          <a
-            href="#"
-            className="text-white hover:text-secondary font-bold text-lg"
-          >
-            Rent
-          </a>
-        </div>
 
         <div className="flex items-center">
           <input

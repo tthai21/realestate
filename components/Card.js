@@ -1,21 +1,21 @@
 import React from "react";
 
-const Card = ({ realEstate }) => {
+const Card = ({ house }) => {
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg mt-5">
+    <div className="max-w-sm rounded overflow-hidden shadow-lg mx-auto">
       <img
-        className="w-full"
-        src={realEstate.imageUrl}
-        alt={`House ${realEstate.id}`}
+        className="w-[500px] h-[200px]"
+        src={house.imageUrl}
+        alt={`House ${house.id}`}
       />
       <div className="px-6 py-4">
-        <div className="font-bold text-xl mb-2">Price: ${realEstate.price}</div>
-        <p className="text-gray-700 text-base mb-2">{realEstate.description}</p>
-        <p className="text-gray-700 text-base">
-          Bedrooms: {realEstate.bedrooms}
-        </p>
-        <p className="text-gray-700 text-base">Toilets: {realEstate.toilets}</p>
-        <p className="text-gray-700 text-base">Parking: {realEstate.parking}</p>
+        <div className="font-bold text-xl mb-2">Price: ${house.price}</div>
+        <p className="text-gray-700 text-base mb-2">{house.description}</p>
+      </div>
+      <div className="px-6 pt-4 pb-2">
+        <p className="text-gray-700 text-base">Bedrooms: {house.bedrooms}</p>
+        <p className="text-gray-700 text-base">Toilets: {house.toilets}</p>
+        <p className="text-gray-700 text-base">Parking: {house.parking}</p>
       </div>
     </div>
   );
