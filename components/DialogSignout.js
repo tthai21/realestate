@@ -2,7 +2,7 @@ import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "@/app/userSlice";
+import { logoutUser } from "@/redux-toolkit/userSlice";
 
 const DialogSignOut = () => {
   const dispatch = useDispatch();

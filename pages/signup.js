@@ -1,7 +1,10 @@
+import axios from "@/ulti/axios";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Signup = () => {
   const [formData, setFormData] = useState(null);
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -11,10 +14,18 @@ const Signup = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e, values) => {
     e.preventDefault();
-
-    console.log(formData);
+    const REGISTER_URL = "api/auth/register";
+    try {
+      const response = await axios.post(REGISTER_URL, (values = formData));
+      alert(
+        `New account has been created ! Welcomes ${response?.data.username} `
+      );
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -25,15 +36,15 @@ const Signup = () => {
       <form onSubmit={handleSubmit} className="max-w-md mx-auto">
         <div className="mb-4">
           <label
-            htmlFor="name"
+            htmlFor="username"
             className="block text-sm font-medium text-gray-700"
           >
             Name
           </label>
           <input
             type="text"
-            id="name"
-            name="name"
+            id="username"
+            name="username"
             onChange={handleChange}
             className="mt-1 block w-full bg-slate-100 border-gray-700 rounded-md shadow-lg focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm px-4 py-2"
           />

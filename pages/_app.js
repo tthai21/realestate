@@ -1,4 +1,4 @@
-import { store } from "@/app/store";
+import { store } from "@/redux-toolkit/store";
 import Layout from "@/components/layout";
 import "@/styles/globals.css";
 import { Provider } from "react-redux";

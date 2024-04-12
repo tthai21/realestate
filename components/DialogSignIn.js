@@ -1,14 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
-import { setUser } from "@/app/userSlice";
+import axios from "@/ulti/axios";
+import { setUser } from "@/redux-toolkit/userSlice";
 
 const DialogSignIn = () => {
+  const [formData, setFormData] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const dispatch = useDispatch();
-  const handleSubmit = () => {
-    dispatch(setUser({ name: "Steve", email: "steve@gmail.com" }));
+  const handleSubmit = async (values) => {
+    const LOGIN_URL = "api/auth/login";
+    try {
+      const response = await axios.post(LOGIN_URL, (values = formData));
+      const token = await response.data.authentication.token;
+      localStorage.setItem("token", token);
+      const email = await response.data.email;
+      const username = await response.data.username;
+      console.log(response.data);
+      dispatch(setUser({ name: username, email: email }));
+      // return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Dialog.Root>
@@ -33,8 +56,10 @@ const DialogSignIn = () => {
             <input
               className="focus:outline-none text-violet11 shadow-violet7  inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
               id="email"
+              name="email"
               type="email"
               placeholder="example@gmail.com"
+              onChange={handleChange}
             />
           </fieldset>
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -48,7 +73,9 @@ const DialogSignIn = () => {
               className="focus:outline-none text-violet11 shadow-violet7  inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
               id="password"
               type="password"
+              name="password"
               placeholder="password"
+              onChange={handleChange}
             />
           </fieldset>
           <Dialog.Description className="text-mauve11 mt-[10px] mb-5 text-[15px] leading-normal flex text-center justify-center">

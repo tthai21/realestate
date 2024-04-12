@@ -10,7 +10,6 @@ export default function Home() {
   const { data: houseList, error } = useSWR("/api/houseList", fetcher);
 
   const user = useSelector((state) => state.user.email);
-  console.log(user);
 
   if (error) return <Error />;
   if (!houseList) return <Loading />;
