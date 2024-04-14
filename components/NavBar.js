@@ -13,7 +13,7 @@ const NavBar = () => {
           <img src="/realestate.jpg" alt="realestate Logo" className=" h-12" />
         </Link>
 
-        <div className="flex items-center">
+        {/* <div className="flex items-center">
           <input
             type="text"
             placeholder="Search..."
@@ -22,7 +22,7 @@ const NavBar = () => {
           <button className="ml-2 px-3 py-1 rounded-md bg-secondary text-white hover:bg-white hover:text-secondary focus:outline-none">
             Search
           </button>
-        </div>
+        </div> */}
 
         {user ? <DialogSignOut /> : <DialogSignIn />}
       </div>

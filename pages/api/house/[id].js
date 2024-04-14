@@ -101,5 +101,13 @@ export default function handler(req, res) {
     },
   ];
 
-  res.status(200).json(houseList);
+  const { id } = req.query;
+  const house = houseList.find((house) => house.id === parseInt(id));
+
+  if (!house) {
+    res.status(404).json({ message: "House not found" });
+    return;
+  }
+
+  res.status(200).json(house);
 }

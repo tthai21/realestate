@@ -1,39 +1,43 @@
-import React from "react";
+// pages/[id].js
+import Loading from "@/components/Loading";
 import { useRouter } from "next/router";
-import Head from "next/head";
+import { useEffect, useState } from "react";
+import useSWR from "swr";
 
-const HouseDetailPage = () => {
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+const PropertyDetailsPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  // Assume `realEstates` is your data source
-  const house = realEstates.find((house) => house.id === parseInt(id));
+  const { data: house, error } = useSWR(`/api/house/${id}`, fetcher);
 
+  if (error) return <Error />;
   if (!house) {
-    return <div>House not found</div>;
+    return <Loading />;
   }
 
   return (
-    <div>
-      <Head>
-        <title>{house.description}</title>
-      </Head>
-      <div className="max-w-lg mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-[70%] mx-auto mt-28 mb-60">
+      <div>
         <img
-          className="w-full h-64 object-cover rounded-lg mb-4"
           src={house.imageUrl}
-          alt={`House ${house.id}`}
+          alt={house.name}
+          className="w-[500px] h-[300x] "
         />
-        <div className="px-4">
-          <h1 className="text-2xl font-bold mb-2">{house.description}</h1>
-          <p className="text-gray-700 mb-2">Price: ${house.price}</p>
-          <p className="text-gray-700 mb-2">Bedrooms: {house.bedrooms}</p>
-          <p className="text-gray-700 mb-2">Toilets: {house.toilets}</p>
-          <p className="text-gray-700 mb-2">Parking: {house.parking}</p>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <p>Price: ${house.price}</p>
+          <p>Bedrooms: {house.bedrooms}</p>
+          <p>Toilets: {house.toilets}</p>
+          <p>Parking: {house.parking}</p>
         </div>
+      </div>
+      <div>
+        <h1 className="text-xl font-bold mb-2">{house.name}</h1>
+        <p>{house.description}</p>
       </div>
     </div>
   );
 };
 
-export default HouseDetailPage;
+export default PropertyDetailsPage;
