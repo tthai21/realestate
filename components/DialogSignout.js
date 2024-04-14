@@ -7,11 +7,9 @@ import { logoutUser } from "@/redux-toolkit/userSlice";
 const DialogSignOut = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.email);
-
   const logOutHandle = () => {
     dispatch(logoutUser());
   };
-
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>

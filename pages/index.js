@@ -2,14 +2,11 @@ import React from "react";
 import useSWR from "swr";
 import Card from "@/components/Card";
 import Loading from "@/components/Loading";
-import { useSelector } from "react-redux";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Home() {
   const { data: houseList, error } = useSWR("/api/houseList", fetcher);
-
-  const user = useSelector((state) => state.user.email);
 
   if (error) return <Error />;
   if (!houseList) return <Loading />;

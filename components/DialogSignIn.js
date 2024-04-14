@@ -22,13 +22,8 @@ const DialogSignIn = () => {
     const LOGIN_URL = "api/auth/login";
     try {
       const response = await axios.post(LOGIN_URL, (values = formData));
-      const token = await response.data.authentication.token;
-      localStorage.setItem("token", token);
-      const email = await response.data.email;
-      const username = await response.data.username;
-      console.log(response.data);
+      const { email, username } = await response.data;
       dispatch(setUser({ name: username, email: email }));
-      // return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +31,7 @@ const DialogSignIn = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className="ml-4 px-3 py-1 rounded-md bg-secondary text-white hover:bg-white hover:text-secondary focus:outline-none">
+        <button className="text-sm sm:text-base sm:px-3 ml-4 px-0 py-1 rounded-md bg-secondary text-white hover:bg-white hover:text-secondary focus:outline-none">
           Sign In
         </button>
       </Dialog.Trigger>
