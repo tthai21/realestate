@@ -1,5 +1,7 @@
 import React from "react";
-import AlertDialogUser from "./AlertDialog";
+import AlertDialogUser from "./AlertDialogUser";
+import FloatingActionButtons from "./Fab";
+import AlertDialogLike from "./AlertDialogLike";
 
 const Card = ({ house }) => {
   return (
@@ -11,10 +13,13 @@ const Card = ({ house }) => {
           {house.description}
         </p>
       </div>
-      <div className="px-6 pt-4 pb-2">
-        <p className="text-gray-700 text-base">Bedrooms: {house.bedrooms}</p>
-        <p className="text-gray-700 text-base">Toilets: {house.toilets}</p>
-        <p className="text-gray-700 text-base">Parking: {house.parking}</p>
+      <div className="px-6 pt-4 pb-2 flex justify-between">
+        <div>
+          <p className="text-gray-700 text-base">Bedrooms: {house.bedrooms}</p>
+          <p className="text-gray-700 text-base">Toilets: {house.toilets}</p>
+          <p className="text-gray-700 text-base">Parking: {house.parking}</p>
+        </div>
+        <AlertDialogLike />
       </div>
     </div>
   );
