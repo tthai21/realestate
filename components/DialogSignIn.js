@@ -35,7 +35,9 @@ const DialogSignIn = () => {
     } catch (error) {
       if (error.response) {
         if (error.response.status === 403) {
-          alert("Access forbidden. Please refresh your browser and try again.");
+          alert(
+            "Email or Password Invalid. Please refresh your browser and try again."
+          );
         } else {
           alert(error.response.data.message);
         }

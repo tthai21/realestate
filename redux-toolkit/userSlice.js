@@ -24,10 +24,8 @@ export const userSlice = createSlice({
       const index = state.likedHouses.indexOf(houseId);
 
       if (index === -1) {
-        // houseId not in array, so add it
         state.likedHouses.push(houseId);
       } else {
-        // houseId already in array, so remove it
         state.likedHouses.splice(index, 1);
       }
     },
