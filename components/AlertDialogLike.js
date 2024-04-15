@@ -2,12 +2,11 @@ import React from "react";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import FloatingActionButtons from "./Fab";
+import FloatingActionButtons from "./FloatingActionButtons";
 
-const AlertDialogLike = ({ src, id }) => {
+const AlertDialogLike = ({ id, isLiked }) => {
   const user = useSelector((state) => state.user.email);
   const router = useRouter();
-
   const signupHandler = () => {
     router.push("/signup");
   };
@@ -15,17 +14,19 @@ const AlertDialogLike = ({ src, id }) => {
     <AlertDialog.Root>
       {!user ? (
         <AlertDialog.Trigger asChild>
-          <FloatingActionButtons disable={true} />
+          <div className="cursor-pointer">
+            <FloatingActionButtons id={id} isLiked={isLiked} />
+          </div>
         </AlertDialog.Trigger>
       ) : (
         <AlertDialog.Trigger asChild>
-          <FloatingActionButtons />
+          <FloatingActionButtons id={id} isLiked={isLiked} />
         </AlertDialog.Trigger>
       )}
 
       <AlertDialog.Portal>
-        <AlertDialog.Overlay className="bg-slate-700 bg-opacity-70 data-[state=open]:animate-overlayShow fixed inset-0" />
-        <AlertDialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+        <AlertDialog.Overlay className="z-[9999] bg-slate-700 bg-opacity-70 data-[state=open]:animate-overlayShow fixed inset-0" />
+        <AlertDialog.Content className="z-[9999] data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
           <AlertDialog.Title className="text-mauve12 m-0 text-[17px] font-medium">
             Login first
           </AlertDialog.Title>

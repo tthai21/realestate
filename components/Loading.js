@@ -1,7 +1,7 @@
 import React from "react";
 
 const Loading = () => (
-  <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-50 z-50">
+  <div className="z-[9999] fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-900 bg-opacity-50 ">
     <svg
       className="animate-spin h-20 w-20 text-white"
       xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,5 @@
 import React from "react";
 import AlertDialogUser from "./AlertDialogUser";
-import FloatingActionButtons from "./Fab";
 import AlertDialogLike from "./AlertDialogLike";
 
 const Card = ({ house }) => {
@@ -19,7 +18,7 @@ const Card = ({ house }) => {
           <p className="text-gray-700 text-base">Toilets: {house.toilets}</p>
           <p className="text-gray-700 text-base">Parking: {house.parking}</p>
         </div>
-        <AlertDialogLike />
+        <AlertDialogLike id={house.id} isLiked={house.isLiked} />
       </div>
     </div>
   );

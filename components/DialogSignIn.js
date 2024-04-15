@@ -5,9 +5,15 @@ import Link from "next/link";
 import { useDispatch } from "react-redux";
 import axios from "@/ulti/axios";
 import { setUser } from "@/redux-toolkit/userSlice";
+import { useRouter } from "next/router";
+import Loading from "./Loading";
 
 const DialogSignIn = () => {
   const [formData, setFormData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,17 +23,36 @@ const DialogSignIn = () => {
     }));
   };
 
-  const dispatch = useDispatch();
   const handleSubmit = async (values) => {
     const LOGIN_URL = "api/auth/login";
+    setIsLoading(true);
     try {
       const response = await axios.post(LOGIN_URL, (values = formData));
       const { email, username } = await response.data;
       dispatch(setUser({ name: username, email: email }));
+      setIsLoading(false);
+      router.push("/");
     } catch (error) {
-      console.log(error);
+      if (error.response) {
+        if (error.response.status === 403) {
+          alert("Access forbidden. Please refresh your browser and try again.");
+        } else {
+          alert(error.response.data.message);
+        }
+      } else if (error.request) {
+        alert(
+          "No response received from server. Please refresh your browser and try again"
+        );
+      } else {
+        alert(
+          "An error occurred while setting up the request. Please refresh your browser and try again"
+        );
+      }
     }
+    setIsLoading(false);
   };
+
+  if (isLoading) return <Loading />;
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
