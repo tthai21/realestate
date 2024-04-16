@@ -1,10 +1,12 @@
 import axios from "@/ulti/axios";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/Loading";
 
 const Signup = () => {
   const [formData, setFormData] = useState(null);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,12 +18,15 @@ const Signup = () => {
 
   const handleSubmit = async (e, values) => {
     e.preventDefault();
+    setIsLoading(true);
     const REGISTER_URL = "api/auth/register";
     try {
       const response = await axios.post(REGISTER_URL, (values = formData));
+
       alert(
         `New account has been created ! Welcomes ${response?.data.username} `
       );
+      setIsLoading(false);
       router.push("/");
     } catch (error) {
       if (error.response) {
@@ -42,7 +47,10 @@ const Signup = () => {
         );
       }
     }
+    setIsLoading(false);
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <div className=" mx-auto py-6 mb-[200px]   mt-[100px] rounded-lg">
