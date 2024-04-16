@@ -43,7 +43,7 @@ const DialogSignIn = () => {
         }
       } else if (error.request) {
         alert(
-          "No response received from server. Please refresh your browser and try again"
+          "Email or Password Invalid. Please refresh your browser and try again"
         );
       } else {
         alert(

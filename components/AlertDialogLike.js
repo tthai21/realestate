@@ -31,7 +31,7 @@ const AlertDialogLike = ({ id, isLiked }) => {
             Login first
           </AlertDialog.Title>
           <AlertDialog.Description className="text-mauve11 mt-4 mb-5 text-[15px] leading-normal">
-            You need to login to see the detail page. If you don't have account
+            You need to login to like this property. If you don't have account
             please sign up!
           </AlertDialog.Description>
           <div className="flex justify-end gap-[25px]">
