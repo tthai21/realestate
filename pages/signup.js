@@ -24,7 +24,23 @@ const Signup = () => {
       );
       router.push("/");
     } catch (error) {
-      console.error(error);
+      if (error.response) {
+        if (error.response.status === 403) {
+          alert(
+            "Email or Password Invalid. Please refresh your browser and try again."
+          );
+        } else {
+          alert(error.response.data.message);
+        }
+      } else if (error.request) {
+        alert(
+          "Email or Password Invalid. Please refresh your browser and try again"
+        );
+      } else {
+        alert(
+          "An error occurred while setting up the request. Please refresh your browser and try again"
+        );
+      }
     }
   };
 
